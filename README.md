@@ -1,4 +1,4 @@
 # AllnOne
 
-### Frontend: main branch
-### Backend: master branch
+### Frontend: frontend branch
+### Backend: backend branch
