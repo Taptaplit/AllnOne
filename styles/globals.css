@@ -1,7 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
 html,
 body {
+  min-height: 100vh;
   padding: 0;
   margin: 0;
+  box-sizing: border-box;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
@@ -14,3 +20,54 @@ a {
 * {
   box-sizing: border-box;
 }
+
+
+.weather {
+  grid-area: weather !important;
+}
+
+.news {
+  grid-area: news !important;
+}
+
+.quote {
+  grid-area: quote !important;
+}
+
+.sports {
+  grid-area: sports !important;
+}
+
+.stocks {
+  grid-area: stocks !important;
+}
+
+.wave-pattern {
+  background-image: url("/topography.svg");
+  background-size: 300px;
+}
+
+@media screen and (max-width: 1200px) {
+  .sports, .quote, .news, .weather, .stocks {
+    width: 60vw !important;
+  }
+
+  .sports {
+    min-height: 40vh;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .sports, .quote, .news, .weather, .stocks {
+    width: 90vw !important;
+  }
+
+  .sports {
+    min-height: 40vh;
+  }
+}
+
+.pref_checkbox {
+  accent-color: #f43f5e;
+}
+
