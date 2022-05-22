@@ -37,6 +37,34 @@ const SportsCard = ({ team_1_name, team_2_name, team_1_image_url, team_2_image_u
     </div>);
   }
 
+  export async function getStaticProps() {
+    const newsRes = await axios.get('https://alln-one.herokuapp.com/api/v1/news');
+    const newsTopOne = newsRes.data.data.results[0];
+    const newsTopTwo = newsRes.data.data.results[1];
+    const newsTopThree = newsRes.data.data.results[2];
+
+    const sportsRes = await axios.get('https://alln-one.herokuapp.com/api/v1/sports');
+    const sportsJson = sportsRes.data.data;
+    const bkball = sportsJson.basketball
+    const bsball = sportsJson.baseball
+
+    const factRes = await axios.get('https://alln-one.herokuapp.com/api/v1/fact');
+    const fact = factRes.data.data.text;
+
+    const stocksRes = await axios.get('https://alln-one.herokuapp.com/api/v1/stocks');
+    let stockSymbols = stocksRes.data.data
+
+    const elonTweetRes = await axios.get("https://alln-one.herokuapp.com/api/v1/tweets")
+    const tweets = elonTweetRes.data.data.data
+
+    const holidayRes = await axios.get(`https://holidays.abstractapi.com/v1/?api_key=e51ea42f08294eb58a179da5a6611a2e&country=US&year=${new Date(Date.now()).getFullYear()}&month=${new Date(Date.now()).getMonth() + 1}&day=${new Date(Date.now()).getDate()}`)
+    const holidays = holidayRes.data
+
+    return {
+      props: { newsTopOne, newsTopTwo, newsTopThree, bkball, bsball, stockSymbols, fact, tweets, holidays }, // will be passed to the page component as props
+    }
+  }
+  
   export default function Home({ newsTopOne, newsTopTwo, newsTopThree, bkball, bsball, stockSymbols, fact, tweets, holidays }) {
     const inputRef = useRef();
     const [status, setStatus] = useState(null);
@@ -405,33 +433,4 @@ const SportsCard = ({ team_1_name, team_2_name, team_1_image_url, team_2_image_u
       </div>
     </div>
   )
-}
-
-export async function getStaticProps() {
-
-  const newsRes = await axios.get('https://alln-one.herokuapp.com/api/v1/news');
-  const newsTopOne = newsRes.data.data.results[0];
-  const newsTopTwo = newsRes.data.data.results[1];
-  const newsTopThree = newsRes.data.data.results[2];
-
-  const sportsRes = await axios.get('https://alln-one.herokuapp.com/api/v1/sports');
-  const sportsJson = sportsRes.data.data;
-  const bkball = sportsJson.basketball
-  const bsball = sportsJson.baseball
-  
-  const factRes = await axios.get('https://alln-one.herokuapp.com/api/v1/fact');
-  const fact = factRes.data.data.text;
-
-  const stocksRes = await axios.get('https://alln-one.herokuapp.com/api/v1/stocks');
-  let stockSymbols = stocksRes.data.data
-
-  const elonTweetRes = await axios.get("https://alln-one.herokuapp.com/api/v1/tweets")
-  const tweets = elonTweetRes.data.data.data
-  
-  const holidayRes = await axios.get(`https://holidays.abstractapi.com/v1/?api_key=e51ea42f08294eb58a179da5a6611a2e&country=US&year=${new Date(Date.now()).getFullYear()}&month=${new Date(Date.now()).getMonth() + 1}&day=${new Date(Date.now()).getDate()}`)
-  const holidays = holidayRes.data
-
-  return {
-    props: { newsTopOne, newsTopTwo, newsTopThree, bkball, bsball, stockSymbols, fact, tweets, holidays }, // will be passed to the page component as props
-  }
 }
