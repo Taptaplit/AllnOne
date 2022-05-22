@@ -37,7 +37,7 @@ const SportsCard = ({ team_1_name, team_2_name, team_1_image_url, team_2_image_u
     </div>);
   }
 
-  export async function getStaticProps() {
+  export async function getServerSideProps() {
     const newsRes = await axios.get('https://alln-one.herokuapp.com/api/v1/news');
     const newsTopOne = newsRes.data.data.results[0];
     const newsTopTwo = newsRes.data.data.results[1];
